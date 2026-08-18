@@ -20,7 +20,7 @@ if (mysql_num_rows($liga2) == 0) {
 else {
 	$liga3 = mysql_fetch_assoc($liga2);
 	$liga3 = $liga3['name'];
-	$ligaTdContent = '<td class="link"><a href="/lig_tabelle.php?liga='.$sql3['liga'].'">'.$liga3.'</a></td>';
+	$ligaTdContent = '<td class="link"><a href="/lig_tabla.php?liga='.$sql3['liga'].'">'.$liga3.'</a></td>';
 }
 if ($sql3['team'] != '__'.$clearedID) {
 	$team1 = "SELECT name, wantTests FROM ".$prefix."teams WHERE ids = '".$sql3['team']."'";
@@ -28,7 +28,7 @@ if ($sql3['team'] != '__'.$clearedID) {
 	$team3 = mysql_fetch_assoc($team2);
 	$wantTests = $team3['wantTests'];
 	$team3 = $team3['name'];
-	$teamPageLink = '<a href="/team.php?id='.$sql3['team'].'">'.$team3.'</a>';
+	$teamPageLink = '<a href="/equipo.php?id='.$sql3['team'].'">'.$team3.'</a>';
 	$teamTdClass = ' class="link"';
 }
 else {
@@ -129,7 +129,7 @@ $ttc1 = "SELECT zeit, team2 FROM ".$prefix."teamChanges WHERE team1 = '".$sql3['
 $ttc2 = mysql_query($ttc1);
 if (mysql_num_rows($ttc2) > 0) {
 	$ttc3 = mysql_fetch_assoc($ttc2);
-	echo '<p><strong>'._('Letzter Team-Tausch:').'</strong> <a href="/team.php?id='.$ttc3['team2'].'">'.date('d.m.Y H:i', $ttc3['zeit']).'</a></p>';
+	echo '<p><strong>'._('Letzter Team-Tausch:').'</strong> <a href="/equipo.php?id='.$ttc3['team2'].'">'.date('d.m.Y H:i', $ttc3['zeit']).'</a></p>';
 }
 // TEAM-TAUSCH MIT CODE ENDE
 if ($urlaub3 > 0 && !in_array($clearedID, unserialize(CONFIG_PROTECTED_USERS))) {
@@ -142,7 +142,7 @@ if ($urlaub3 > 0 && !in_array($clearedID, unserialize(CONFIG_PROTECTED_USERS))) 
 <th scope="col"><?php echo _('Bereich'); ?></th>
 <th scope="col"><?php echo _('Wert'); ?></th>
 </tr>
-<?php include 'manager_kontaktlink.php'; ?>
+<?php include 'contacto_manager.php'; ?>
 </thead>
 <tbody>
 <?php
@@ -160,11 +160,11 @@ else {
 echo '</td></tr>';
 if ($loggedin == 1) {
     if ($_GET['id'] != $cookie_id) {
-        echo '<tr><td colspan="2" class="link"><a href="/post_schreiben.php?id='.$_GET['id'].'"'.noDemoClick($cookie_id).'><img width="16" style="vertical-align: middle;" alt="email" src="/images/email_add.png"> '.__('%s jetzt eine Nachricht schicken', $sql3['username']).'</a></td></tr>';
+        echo '<tr><td colspan="2" class="link"><a href="/escribir_correo.php?id='.$_GET['id'].'"'.noDemoClick($cookie_id).'><img width="16" style="vertical-align: middle;" alt="email" src="/images/email_add.png"> '.__('%s jetzt eine Nachricht schicken', $sql3['username']).'</a></td></tr>';
         if (isset($kontakt_link)) { echo $kontakt_link; }
     }
     if ($_SESSION['status'] == 'Helfer' || $_SESSION['status'] == 'Admin') {
-        echo '<tr class="odd"><td colspan="2" class="link"><a href="/sanktionen.php?profileID='.$clearedID.'"><img width="16" style="vertical-align: middle;" alt="report" src="/images/report_add.png"> '.__('Sanktion für %s festlegen', $sql3['username']).'</a></td></tr>';
+        echo '<tr class="odd"><td colspan="2" class="link"><a href="/sanciones.php?profileID='.$clearedID.'"><img width="16" style="vertical-align: middle;" alt="report" src="/images/report_add.png"> '.__('Sanktion für %s festlegen', $sql3['username']).'</a></td></tr>';
     }
 }
 ?>
@@ -208,7 +208,7 @@ if ($loggedin == 1 && $sql3['team'] != '__'.$cookie_id && $clearedID != '__'.$co
 					$optionsStr = '';
 					$optionsStr .= '<h1>'._('Testspiel vereinbaren').'</h1>';
 					$optionsStr .= '<p><strong>'._('Wichtig:').'</strong> '.__('Das Testspiel findet immer im Stadion des Anfragenden statt. Beide Teams müssen für ein Testspiel eine Entschädigung an den Verband zahlen, damit das Spiel genehmigt wird. Für Dich sind das %s €.', number_format(Friendlies::getPrice($cookie_liga, $prefix), 0, ',', '.')).'</p>';
-					$optionsStr .= '<form action="/testspiel_anfrage.php" method="get" accept-charset="utf-8">';
+					$optionsStr .= '<form action="/solicitud_amistoso.php" method="get" accept-charset="utf-8">';
 					$heute_tag = date('d', time());
 					$heute_monat = date('m', time());
 					$heute_jahr = date('Y', time());
@@ -252,7 +252,7 @@ if ($loggedin == 1) {
             $ban3 = mysql_fetch_assoc($ban2);
             $chatSperreBis = $ban3['MAX(chatSperre)'];
             if ($chatSperreBis > 0 && $chatSperreBis > time()) {
-                addInfoBox(__('Du bist noch bis zum %1$s Uhr für die Kommunikation im Spiel gesperrt. Wenn Dir unklar ist warum, frage bitte das %2$s.', date('d.m.Y H:i', $chatSperreBis), '<a class="inText" href="/wio.php">'._('Support-Team').'</a>'));
+                addInfoBox(__('Du bist noch bis zum %1$s Uhr für die Kommunikation im Spiel gesperrt. Wenn Dir unklar ist warum, frage bitte das %2$s.', date('d.m.Y H:i', $chatSperreBis), '<a class="inText" href="/quien_esta_en_linea.php">'._('Support-Team').'</a>'));
                 include 'zz3.php';
                 exit;
             }

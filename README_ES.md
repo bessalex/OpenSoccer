@@ -113,27 +113,27 @@ El juego utiliza 21 scripts en segundo plano para procesar la simulación de par
 
 | Archivo | Frecuencia de Ejecución | Descripción Funcional |
 | :--- | :--- | :--- |
-| `aa_spieltag_simulation.php` | Cada minuto (horas 10-11, 14-15, 18-19, 22-23) | Simula los partidos en directo y calcula los resultados. |
-| `aa_tabellen_berechnen.php` | Cada 2 minutos (horas 16-17) | Recalcula la tabla de clasificación y estadísticas. |
-| `aa_marktwert_berechnen.php` | Cada 5 minutos | Actualiza el valor de mercado de los jugadores. |
-| `aa_multi_detect.php` | Cada 5 minutos | Algoritmo anti-trampas para detectar cuentas múltiples por IP/Hash. |
-| `aa_team_staerke_berechnen.php` | Cada 5 minutos | Recalcula la fuerza global del equipo en función del 11 inicial. |
-| `aa_buchungenBuffer.php` | Cada 10 minutos (excepto horas de simulación) | Procesa las transacciones bancarias bufferizadas. |
-| `aa_computer_managen.php` | Cada 10 minutos | Gestión automatizada de equipos controlados por la IA. |
-| `aa_npc_transfermarkt.php` | Cada 15 minutos | Gestión de ofertas y actividad de la IA en el mercado. |
-| `aa_praemienAbrechnung.php` | Cada 15 minutos | Procesa el cobro de primas por partido disputado. |
-| `aa_spieler_verbesserung.php` | Cada 15 minutos | Procesa el entrenamiento, mejora y declive de jugadores. |
-| `aa_cup_auslosen.php` | Cada 30 minutos | Sorteo automatizado de rondas de la Copa Internacional. |
-| `aa_spieler_erzeugen.php` | Cada 30 minutos | Genera nuevos jugadores juveniles en las canteras de los clubes. |
-| `aa_entlassungen.php` | Cada hora | Procesa las rescisiones de contrato y desempleo. |
-| `aa_pokal_auslosen.php` | Cada 6 horas | Sorteo de las fases de la Copa Nacional. |
-| `aa_tv_einnahmen.php` | Cada 6 horas | Ingreso de derechos televisivos a las arcas del club. |
-| `aa_db_analyse.php` | Cada día | Optimización y análisis de rendimiento de tablas MySQL. |
-| `aa_gehaelter_abbuchen.php` | Cada día | Pago de salarios a la plantilla y cuerpo técnico. |
-| `aa_lotto.php` | Cada día | Sorteo del juego de lotería oficial. |
-| `aa_saisonende.php` | Cada día (a las 22:00) | Finalización de temporada, ascensos, descensos y premios. |
-| `aa_spielplan_erstellen.php` | Cada día (a las 23:00) | Generación del calendario de la próxima temporada. |
-| `aa_stadion_kosten.php` | Cada día (a las 23:00) | Cobro de mantenimiento del estadio y sus comercios. |
+| `aa_simulacion_jornada.php` | Cada minuto (horas 10-11, 14-15, 18-19, 22-23) | Simula los partidos en directo y calcula los resultados. |
+| `aa_calcular_tablas.php` | Cada 2 minutos (horas 16-17) | Recalcula la tabla de clasificación y estadísticas. |
+| `aa_calcular_valor_mercado.php` | Cada 5 minutos | Actualiza el valor de mercado de los jugadores. |
+| `aa_deteccion_multi.php` | Cada 5 minutos | Algoritmo anti-trampas para detectar cuentas múltiples por IP/Hash. |
+| `aa_calcular_fuerza_equipo.php` | Cada 5 minutos | Recalcula la fuerza global del equipo en función del 11 inicial. |
+| `aa_buffer_reservas.php` | Cada 10 minutos (excepto horas de simulación) | Procesa las transacciones bancarias bufferizadas. |
+| `aa_gestion_ordenador.php` | Cada 10 minutos | Gestión automatizada de equipos controlados por la IA. |
+| `aa_mercado_transferencias_npc.php` | Cada 15 minutos | Gestión de ofertas y actividad de la IA en el mercado. |
+| `aa_liquidacion_primas.php` | Cada 15 minutos | Procesa el cobro de primas por partido disputado. |
+| `aa_mejora_jugadores.php` | Cada 15 minutos | Procesa el entrenamiento, mejora y declive de jugadores. |
+| `aa_sorteo_copa_int.php` | Cada 30 minutos | Sorteo automatizado de rondas de la Copa Internacional. |
+| `aa_crear_jugadores.php` | Cada 30 minutos | Genera nuevos jugadores juveniles en las canteras de los clubes. |
+| `aa_despidos.php` | Cada hora | Procesa las rescisiones de contrato y desempleo. |
+| `aa_sorteo_copa.php` | Cada 6 horas | Sorteo de las fases de la Copa Nacional. |
+| `aa_ingresos_tv.php` | Cada 6 horas | Ingreso de derechos televisivos a las arcas del club. |
+| `aa_analisis_bd.php` | Cada día | Optimización y análisis de rendimiento de tablas MySQL. |
+| `aa_cobro_salarios.php` | Cada día | Pago de salarios a la plantilla y cuerpo técnico. |
+| `aa_loteria.php` | Cada día | Sorteo del juego de lotería oficial. |
+| `aa_fin_temporada.php` | Cada día (a las 22:00) | Finalización de temporada, ascensos, descensos y premios. |
+| `aa_crear_calendario.php` | Cada día (a las 23:00) | Generación del calendario de la próxima temporada. |
+| `aa_costes_estadio.php` | Cada día (a las 23:00) | Cobro de mantenimiento del estadio y sus comercios. |
 
 ---
 
@@ -171,7 +171,7 @@ Los personajes quedan registrados en la tabla SQL `man_spieler`. Sus atributos c
 | `talent` | Talento / Potencial | Decimal (`0.1` a `10.0`) | Techo máximo de fuerza al que puede aspirar mediante entrenamiento. |
 | `frische` | Frescura Física | Entero (`0` a `100`) | Condición física para competir. Cae tras jugar partidos. |
 | `moral` | Moral / Estado Anímico | Decimal (`0.00` a `100.00`) | Nivel de motivación psicológica del personaje. |
-| `marktwert` | Valor de Mercado | Entero (€) | Valor económico calculado automáticamente según fuerza, edad y talento. |
+| `marktwert` | Valor de Mercado | Entero (€) | Valor económico calculated automáticamente según fuerza, edad y talento. |
 | `gehalt` | Salario | Entero (€) | Sueldo cobrado por el jugador en el pago diario de salarios. |
 | `vertrag` | Duración del Contrato | Timestamp | Fecha en que vence la vinculación contractual con el club. |
 | `leiher` | Club de Cesión | Cadena | Indica si el jugador está cedido a préstamo a otro equipo. |
@@ -185,7 +185,7 @@ Los jugadores no se construyen desde un editor manual de estadísticas arbitrari
 
 1. **Centro de Formación de Jóvenes / Cantera (`jugendarbeit`):**
    * El mánager invierte en el nivel de su cantera (Nivel 1 a 5).
-   * El script `aa_spieler_erzeugen.php` genera de forma periódica jugadores jóvenes (17-19 años) basándose en el nivel del centro:
+   * El script `aa_crear_jugadores.php` genera de forma periódica jugadores jóvenes (17-19 años) basándose en el nivel del centro:
 
 | Nivel de Cantera | Talento Mínimo | Talento Máximo | Salario Base |
 | :---: | :---: | :---: | :---: |
@@ -208,7 +208,7 @@ Los jugadores no se construyen desde un editor manual de estadísticas arbitrari
 
 ### C. Evolución, Desarrollo y Envejecimiento
 
-El desarrollo del personaje está gobernado por el script `aa_spieler_verbesserung.php`:
+El desarrollo del personaje está gobernado por el script `aa_mejora_jugadores.php`:
 
 * **Progreso de Jóvenes (Menores de 31 años / < 11.315 días):**
   * Progresan acumulando partidos jugados (`spiele_gesamt > 8`).
@@ -249,7 +249,7 @@ La **Moral** (`moral`) actúa como el rasgo psicológico y de "personalidad" del
    * Ofrecer un jugador en el mercado de transferencias reduce de inmediato su moral entre **-10% y -15%** (se siente descartado).
 4. **Renovación de Contratos:**
    * Extender el contrato aumenta la moral entre **+5% y +10%** dependiendo de la duración pactada. Si un jugador tiene baja moral, puede **rechazar** firmar un nuevo contrato hasta que su actitud mejore.
-5. **Cuerpo Técnico Remunerado (`ver_personal.php`):**
+5. **Cuerpo Técnico Remunerado (`ges_personal.php`):**
    * **Psicólogo (`letzte_psychologe`):** El mánager puede contratar sesiones para motivar al equipo y subir la moral general.
    * **Fisioterapeuta / Entrenador de Fitness (`letzte_regeneration`):** Permite recuperar la **Frescura** (`frische`) para prevenir lesiones.
 
@@ -257,7 +257,7 @@ La **Moral** (`moral`) actúa como el rasgo psicológico y de "personalidad" del
 
 ### E. Sistema Táctico y Gestión en el Campo
 
-El rendimiento final de cada personaje durante los partidos depende de su combinación de **Fuerza**, **Frescura**, **Moral** y la configuración táctica dictada en `aufstellung.php` y `taktik.php`.
+El rendimiento final de cada personaje durante los partidos depende de su combinación de **Fuerza**, **Frescura**, **Moral** y la configuración táctica dictada en `alineacion.php` y `tactica.php`.
 
 #### Parámetros Tácticos Colectivos (`man_taktiken`):
 * **Orientación (`ausrichtung`):** Ultradefensiva, Defensiva, Normal, Ofensiva, Ultraofensiva.
@@ -294,7 +294,7 @@ El estadio del equipo (`man_stadien`) no es solo la sede de los partidos, sino u
   * Transporte: *Parkplatz* (Aparcamiento), *U-Bahn* (Estación de Metro).
   * Gastronomía: *Restaurant*, *Bierzelt* (Carpa de cerveza), *Pizzeria*, *Imbissstand* (Puesto de comida rápida).
   * Cultura y Merchandising: *Vereinsmuseum* (Museo), *Fanshop* (Tienda oficial).
-* **Costes Mantenimiento:** El script `aa_stadion_kosten.php` deduce diariamente los costes operacionales de cada edificio.
+* **Costes Mantenimiento:** El script `aa_costes_estadio.php` deduce diariamente los costes operacionales de cada edificio.
 
 ---
 
@@ -304,11 +304,11 @@ Cada club dispone de una cuenta bancaria (`konto` en `man_teams`) con contabilid
 
 * **Ingresos:**
   * Venta de entradas y comercios del estadio.
-  * Patrocinador principal (`sponsoren.php`): Prima fija por temporada más primas por punto/partido ganado.
-  * Derechos de Televisión (`aa_tv_einnahmen.php`): Calculados según la categoría de la liga y clasificación.
-  * Lotería Oficial (`ver_lotto.php`): Bote acumulativo diario.
+  * Patrocinador principal (`patrocinadores.php`): Prima fija por temporada más primas por punto/partido ganado.
+  * Derechos de Televisión (`aa_ingresos_tv.php`): Calculados según la categoría de la liga y clasificación.
+  * Lotería Oficial (`ges_loteria.php`): Bote acumulativo diario.
 * **Gastos:**
-  * Masa salarial diaria de jugadores y técnicos (`aa_gehaelter_abbuchen.php`).
+  * Masa salarial diaria de jugadores y técnicos (`aa_cobro_salarios.php`).
   * Mantenimiento de estadio y cantera.
   * Fichajes y primas por partido (`praemieProEinsatz`).
 
@@ -316,7 +316,7 @@ Cada club dispone de una cuenta bancaria (`konto` en `man_teams`) con contabilid
 
 ### C. Mercado de Fichajes y Cesiones
 
-El mercado (`transfermarkt.php`) permite negociar jugadores entre clubes controlados por humanos o la IA:
+El mercado (`mercado_fichajes.php`) permite negociar jugadores entre clubes controlados por humanos o la IA:
 
 1. **Compra Directa y Subasta:**
    * Subastas con fecha de cierre determinada (`ende`).
@@ -324,16 +324,16 @@ El mercado (`transfermarkt.php`) permite negociar jugadores entre clubes control
 2. **Préstamos / Cesiones:**
    * Cesión con prima por partido jugado (`praemieProEinsatz`). El equipo receptor paga una comisión al propietario cada vez que el jugador cedido salta al campo.
 3. **Mecanismos Anti-Fraude:**
-   * El cronjob `aa_multi_detect.php` rastrea direcciones IP, cookies y *hashes* únicos para evitar ventas fraudulentas entre cuentas del mismo usuario.
+   * El cronjob `aa_deteccion_multi.php` rastrea direcciones IP, cookies y *hashes* únicos para evitar ventas fraudulentas entre cuentas del mismo usuario.
 
 ---
 
 ### D. Sistema de Competiciones y Licencias
 
 * **Competiciones Disponibles:**
-  * **Liga Regular:** Estructura piramidal con ascensos y descensos automáticos al cierre de temporada (`aa_saisonende.php`).
-  * **Copa Nacional (*Pokal*):** Eliminatorias directas entre clubes del mismo país.
-  * **Copa Internacional (*Cup*):** Torneo continental entre los mejores clasificados.
-  * **Partidos Amistosos (*Testspiele*):** Partidos de preparación pactados entre mánagers.
+  * **Liga Regular:** Estructura piramidal con ascensos y descensos automáticos al cierre de temporada (`aa_fin_temporada.php`).
+  * **Copa Nacional (*Pokal*):** Eliminatorias directas entre clubes del mismo país (`copa.php`).
+  * **Copa Internacional (*Cup*):** Torneo continental entre los mejores clasificados (`copa_int.php`).
+  * **Partidos Amistosos (*Testspiele*):** Partidos de preparación pactados entre mánagers (`amistosos.php`).
 * **Licencia de Mánager (`man_licenseTasks`):**
   * Sistema de misiones guiadas para nuevos usuarios que desbloquea funciones avanzadas a medida que completan tareas formativas en el juego.

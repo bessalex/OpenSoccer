@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: /passwort_vergessen.php
-Disallow: /regeln.php
-Disallow: /impressum.php
+Disallow: /recuperar_contrasena.php
+Disallow: /reglas.php
+Disallow: /aviso_legal.php

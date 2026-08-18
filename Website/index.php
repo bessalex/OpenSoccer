@@ -40,30 +40,30 @@ if ($cookie_team != '__'.$cookie_id) {
 		addInfoBox('<a class="inText" href="#sucheNameErgebnisse">'._('Klicke hier, um die Ergebnisse für Deine Suche anzeigen zu lassen.').'</a>');
 	}
 	if ($_SESSION['acceptedRules'] == 0) {
-		addInfoBox(__('Bitte akzeptiere unsere aktuellen %s, die dem Spiel zugrunde liegen.', '<a class="inText" href="/regeln.php">'._('Regeln').'</a>'));
+		addInfoBox(__('Bitte akzeptiere unsere aktuellen %s, die dem Spiel zugrunde liegen.', '<a class="inText" href="/reglas.php">'._('Regeln').'</a>'));
 	}
 	if ($unvollstaendigStr != '') {
-		addInfoBox(__('Die folgenden %1$s sind unvollständig: %2$s', '<a class="inText" href="/aufstellung.php">'._('Aufstellungen').'</a>', substr($unvollstaendigStr, 0, -2)));
+		addInfoBox(__('Die folgenden %1$s sind unvollständig: %2$s', '<a class="inText" href="/alineacion.php">'._('Aufstellungen').'</a>', substr($unvollstaendigStr, 0, -2)));
 	}
 	if ($auslauf3 != 0) {
-		addInfoBox(__('In den nächsten drei Tagen laufen %s aus.', '<a class="inText" href="/vertraege.php">'.__('%d Verträge', $auslauf3).'</a>'));
+		addInfoBox(__('In den nächsten drei Tagen laufen %s aus.', '<a class="inText" href="/contratos.php">'.__('%d Verträge', $auslauf3).'</a>'));
 	}
 	if ($myteam3['sponsor'] == 0) {
-		addInfoBox(__('Du hast für die aktuelle Saison noch keinen Vertrag mit einem Sponsor abgeschlossen. %s', '<a class="inText" href="/sponsoren.php">'._('Klicke hier, um jetzt einen Vertrag abzuschließen.').'</a>'));
+		addInfoBox(__('Du hast für die aktuelle Saison noch keinen Vertrag mit einem Sponsor abgeschlossen. %s', '<a class="inText" href="/patrocinadores.php">'._('Klicke hier, um jetzt einen Vertrag abzuschließen.').'</a>'));
 	}
 	if ($laufende_spiele3 != 0) {
-		addInfoBox(__('LIVE: %1$s-spiele von heute! %2$s', $live_scoring_spieltyp_laeuft, '<a class="inText" href="/liveZentrale.php">&raquo; '._('Zur LIVE-Zentrale').'</a>'));
+		addInfoBox(__('LIVE: %1$s-spiele von heute! %2$s', $live_scoring_spieltyp_laeuft, '<a class="inText" href="/centroEnVivo.php">&raquo; '._('Zur LIVE-Zentrale').'</a>'));
 	}
 	if ($_SESSION['mds_abgestimmt'] == FALSE) {
-		addInfoBox(__('Die Wahl zum &quot;Manager der Saison&quot; läuft! %s', '<a class="inText" href="/manager_der_saison.php">&raquo; '._('Jetzt abstimmen').'</a>'));
+		addInfoBox(__('Die Wahl zum &quot;Manager der Saison&quot; läuft! %s', '<a class="inText" href="/manager_de_la_temporada.php">&raquo; '._('Jetzt abstimmen').'</a>'));
 	}
 	if ($_SESSION['hasLicense'] == 0 && $cookie_team != '__'.$cookie_id) {
-		addInfoBox(__('Du hast Deine %s noch nicht abgeschlossen: Für jede erledigte Aufgabe bekommst Du 1 Mio. auf Dein Vereinskonto!', '<a class="inText" href="/managerPruefung.php">'._('Manager-Prüfung').'</a>'));
+		addInfoBox(__('Du hast Deine %s noch nicht abgeschlossen: Für jede erledigte Aufgabe bekommst Du 1 Mio. auf Dein Vereinskonto!', '<a class="inText" href="/verificacionManager.php">'._('Manager-Prüfung').'</a>'));
 	}
 	?>
 	<h1><?php echo __('Dein Verein: %s', $cookie_teamname); ?></h1>
     <p style="float:left; text-align:left; margin-bottom:0;">
-        <a class="pagenava" href="/freundeWerben.php"><?php echo _('Freunde einladen'); ?></a>
+        <a class="pagenava" href="/invitar_amigos.php"><?php echo _('Freunde einladen'); ?></a>
     </p>
     <p style="text-align:left; margin-bottom:0;">
         <img style="width:16px; height:16px; vertical-align:middle;" src="/images/icon_spieler.png" width="16" alt="<?php echo _('Freunde einladen'); ?>"> <?php echo _('Lade Deine Freunde ein und erhalte 7,5 Mio. Bonus!'); ?>
@@ -96,7 +96,7 @@ if ($cookie_team != '__'.$cookie_id) {
 	<tr><td><?php echo _('Verfügbares Geld'); ?></td><td><?php echo __('%s €', showKontostand($verfuegbaresGeld)); ?></td></tr>
 	<tr class="odd"><td><?php echo _('Aufstellungsstärke'); ?></td><td><img src="/images/balken/<?php echo $vd_aufstellungsstaerke; ?>.png" alt="" /></td></tr>
 	<tr><td><?php echo _('Kaderstärke'); ?></td><td><img src="/images/balken/<?php echo $vd_kaderstaerke; ?>.png" alt="" /></td></tr>
-	<tr class="odd"><td><?php echo _('Jugendabteilung'); ?></td><td class="link"><a href="/kader.php#besetzung">
+	<tr class="odd"><td><?php echo _('Jugendabteilung'); ?></td><td class="link"><a href="/plantilla.php#besetzung">
 		<?php
 		switch ($vd3['posToSearch']) {
 			case 'T': $posToSearch = _('Torwart'); break;
@@ -124,7 +124,7 @@ if ($cookie_team != '__'.$cookie_id) {
 	}
 	echo '<tr><td>'._('Nächster Jugendspieler').'</td><td>'.$nextYouth.' ('.__('Spieltag %d', $nextYouthDay).')</td></tr>';
 	?>
-	<tr class="odd"><td><?php echo _('Testspiele'); ?></td><td class="link"><a href="/testspiele.php">
+	<tr class="odd"><td><?php echo _('Testspiele'); ?></td><td class="link"><a href="/amistosos.php">
 		<?php
 		if ($vd3['wantTests'] == 1) {
 			echo _('Interessiert');
@@ -161,7 +161,7 @@ if ($cookie_team != '__'.$cookie_id) {
 	while ($auslauf3 = mysql_fetch_assoc($auslauf2)) {
 		echo '<tr';
 		if ($counter % 2 == 1) { echo ' class="odd"'; }
-		echo '><td class="link"><a href="/spieler.php?id='.$auslauf3['ids'].'">'.$auslauf3['vorname'].' '.$auslauf3['nachname'].'</a></td><td>'.floor($auslauf3['wiealt']/365).'</td><td>'.date('d.m.Y', $auslauf3['vertrag']).'</td><td>'.__('%s €', number_format($auslauf3['gehalt'], 0, ',', '.')).'</td></tr>';
+		echo '><td class="link"><a href="/jugador.php?id='.$auslauf3['ids'].'">'.$auslauf3['vorname'].' '.$auslauf3['nachname'].'</a></td><td>'.floor($auslauf3['wiealt']/365).'</td><td>'.date('d.m.Y', $auslauf3['vertrag']).'</td><td>'.__('%s €', number_format($auslauf3['gehalt'], 0, ',', '.')).'</td></tr>';
 		$counter++;
 	} // while auslauf3
 	echo '</tbody></table>';
@@ -178,7 +178,7 @@ if ($cookie_team != '__'.$cookie_id) {
 		$sn2 = mysql_query($sn1);
 		while ($sn3 = mysql_fetch_assoc($sn2)) {
 			if ($suchErgebnisCounter < 10) {
-				echo '<li><strong>'._('Team:').'</strong> <a href="/team.php?id='.$sn3['ids'].'">'.$sn3['name'].'</a></li>';
+				echo '<li><strong>'._('Team:').'</strong> <a href="/equipo.php?id='.$sn3['ids'].'">'.$sn3['name'].'</a></li>';
 				$suchErgebnisCounter++;
 			}
 		}
@@ -224,7 +224,7 @@ else {
 					$tm4 = mysql_query($tm3);
 					// SPIELER VOM TRANSFERMARKT HOLEN ENDE
 					// WILLKOMMENS-POST SCHICKEN ANFANG
-					$willkommensText = 'Hallo '.$cookie_username.',<br /><br />herzlich willkommen bei '.CONFIG_SITE_NAME.'. Wir hoffen, du findest Dich hier schnell zurecht.<br />Damit Dir der Einstieg etwas leichter fällt, haben wir viele nützliche <a href="/tipps_des_tages.php">Tipps</a> gesammelt.<br />Wenn Du noch Fragen hast, helfen wir Dir auch gerne im <a href="/chat.php">Chat</a> oder in unserem <a href="/support.php">Support-Bereich</a> weiter.<br />Es wartet eine nette Community auf Dich :)<br /><br />Viel Spaß wünscht<br />'.CONFIG_SITE_NAME.'<br />'.CONFIG_SITE_DOMAIN;
+					$willkommensText = 'Hallo '.$cookie_username.',<br /><br />herzlich willkommen bei '.CONFIG_SITE_NAME.'. Wir hoffen, du findest Dich hier schnell zurecht.<br />Damit Dir der Einstieg etwas leichter fällt, haben wir viele nützliche <a href="/consejos_del_dia.php">Tipps</a> gesammelt.<br />Wenn Du noch Fragen hast, helfen wir Dir auch gerne im <a href="/chat.php">Chat</a> oder in unserem <a href="/support.php">Support-Bereich</a> weiter.<br />Es wartet eine nette Community auf Dich :)<br /><br />Viel Spaß wünscht<br />'.CONFIG_SITE_NAME.'<br />'.CONFIG_SITE_DOMAIN;
 					$sql1 = "INSERT INTO ".$prefix."pn (von, an, titel, inhalt, zeit, in_reply_to) VALUES ('".CONFIG_OFFICIAL_USER."', '".$cookie_id."', 'Willkommen bei '.CONFIG_SITE_NAME, '".$willkommensText."', '".time()."', '')";
 					$sql2 = mysql_query($sql1);
 					$sql1 = "UPDATE ".$prefix."pn SET ids = MD5(id) WHERE ids = ''";
@@ -255,8 +255,8 @@ else {
 				echo '<tr';
 				if ($counter % 2 != 0) { echo ' class="odd"'; }
 				echo '>';
-				echo '<td class="link"><a href="/team.php?id='.$getleer3['ids'].'">'.$getleer3['name'].'</a></td>';
-				echo '<td class="link"><a href="/lig_tabelle.php?liga='.$getleer3['liga'].'">'.$getleer3['ligaName'].'</a></td>';
+				echo '<td class="link"><a href="/equipo.php?id='.$getleer3['ids'].'">'.$getleer3['name'].'</a></td>';
+				echo '<td class="link"><a href="/lig_tabla.php?liga='.$getleer3['liga'].'">'.$getleer3['ligaName'].'</a></td>';
 				echo '<td class="link"><a href="/?newUser=1&amp;selectTeam='.$getleer3['ids'].'&amp;verify='.md5($getleer3['ids']).'" onclick="return confirm(\''._('Bist Du sicher?').'\');">'._('Team wählen').'</a></td>';
 				echo '</tr>';
 				$counter++;
@@ -279,7 +279,7 @@ else {
 <p><strong><?php echo _('Du bist der Trainer. Du bist der Manager. Du hast alles in der Hand!'); ?></strong></p>
 <p>+ <?php echo _('Übernimm Deinen eigenen Fußballklub!'); ?><br />+ <?php echo _('jeden Tag 1 bis 4 Spiele (Liga + Pokal)'); ?><br />+ <?php echo _('einfach im Browser managen &mdash; keine Installation'); ?><br />+ <?php echo _('garantiert kostenlos &mdash; auch in Zukunft'); ?><br />+ <?php echo _('keine Premium-Accounts &mdash; gleiche Chancen für alle'); ?><br />+ <?php echo _('schneller Einstieg'); ?><br />+ <?php echo _('langfristiger Spielspaß'); ?><br />+ <?php echo _('tolle Community'); ?><br />+ <?php echo _('wenig Zeitaufwand'); ?><br />+ <?php echo _('LIVE-Spiele &mdash; spannend bis zum Ende'); ?><br />+ <?php echo _('Urlaubsvertretung durch den Computer (10-30 Tage)'); ?></p>
 <h1><?php echo _('Jetzt registrieren'); ?></h1>
-<form method="post" action="/registrieren.php" accept-charset="utf-8" class="imtext">
+<form method="post" action="/registrarse.php" accept-charset="utf-8" class="imtext">
 <p><?php echo _('Dein gewünschter Managername:'); ?><br /><input type="text" name="reg_benutzername" id="reg_benutzername" style="width:200px" /></p>
 <p><?php echo _('Deine E-Mail-Adresse:'); ?><br /><input type="text" name="reg_email" id="reg_email" style="width:200px" /></p>
 <p><input type="submit" value="<?php echo _('Jetzt kostenlos mitspielen'); ?>" /></p>
