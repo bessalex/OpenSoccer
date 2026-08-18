@@ -118,77 +118,77 @@ if ($_SESSION['last_ligaTausch_check'] < $vor3Minuten) {
 }
 // LIGA-TAUSCH-ANFRAGEN ENDE
 ?>
-<li class="menueintrag"<?php if ($_SERVER['SCRIPT_NAME'] == '/index.php' OR $_SERVER['SCRIPT_NAME'] == '/notizen.php' OR $_SERVER['SCRIPT_NAME'] == '/protokoll.php' OR $_SERVER['SCRIPT_NAME'] == '/einstellungen.php') { echo ' id="current"'; } ?>><a href="/"><?php echo _('Büro'); ?></a>
+<li class="menueintrag"<?php if ($_SERVER['SCRIPT_NAME'] == '/index.php' OR $_SERVER['SCRIPT_NAME'] == '/notas.php' OR $_SERVER['SCRIPT_NAME'] == '/protocolo.php' OR $_SERVER['SCRIPT_NAME'] == '/configuracion.php') { echo ' id="current"'; } ?>><a href="/"><?php echo _('Büro'); ?></a>
 	<ul>
 		<li><a href="/"><?php echo _('Zentrale'); ?></a></li>
-		<?php if ($cookie_team != '__'.$cookie_id) { ?><li><a href="/protokoll.php"><?php echo _('Protokoll'); ?></a></li><?php } ?>
-		<li><a href="/notizen.php"><?php echo _('Notizen'); ?></a></li>
-		<li><a href="/einstellungen.php"><?php echo _('Einstellungen'); ?></a></li>
+		<?php if ($cookie_team != '__'.$cookie_id) { ?><li><a href="/protocolo.php"><?php echo _('Protokoll'); ?></a></li><?php } ?>
+		<li><a href="/notas.php"><?php echo _('Notizen'); ?></a></li>
+		<li><a href="/configuracion.php"><?php echo _('Einstellungen'); ?></a></li>
 	</ul>
 </li>
-<li class="menueintrag"<?php if (substr($_SERVER['SCRIPT_NAME'], 1, 5) == 'stat_' OR $_SERVER['SCRIPT_NAME'] == '/top_manager.php' OR $_SERVER['SCRIPT_NAME'] == '/manager_der_saison.php') { echo ' id="current"'; } ?>><a href="/top_manager.php"><?php echo _('Ranking'); ?></a>
+<li class="menueintrag"<?php if (substr($_SERVER['SCRIPT_NAME'], 1, 4) == 'est_' OR $_SERVER['SCRIPT_NAME'] == '/mejores_managers.php' OR $_SERVER['SCRIPT_NAME'] == '/manager_de_la_temporada.php') { echo ' id="current"'; } ?>><a href="/mejores_managers.php"><?php echo _('Ranking'); ?></a>
 	<?php if ($cookie_team != '__'.$cookie_id) { ?>
 		<ul>
-			<li><a href="/top_manager.php"><?php echo _('Ranking'); ?></a></li>
-			<li><a href="/stat_5jahresWertung.php"><?php echo _('Statistiken'); ?></a></li>
-			<li><a href="/manager_der_saison.php"><?php echo _('Manager-Wahl'); ?></a></li>
+			<li><a href="/mejores_managers.php"><?php echo _('Ranking'); ?></a></li>
+			<li><a href="/est_clasificacion5anos.php"><?php echo _('Statistiken'); ?></a></li>
+			<li><a href="/manager_de_la_temporada.php"><?php echo _('Manager-Wahl'); ?></a></li>
 		</ul>
 	<?php } ?>
 </li>
-<li class="menueintrag"<?php if ($_SERVER['SCRIPT_NAME'] == '/transfermarkt.php' OR $_SERVER['SCRIPT_NAME'] == '/marktschreier.php' OR $_SERVER['SCRIPT_NAME'] == '/transfermarkt_leihe.php' OR $_SERVER['SCRIPT_NAME'] == '/lig_transfers.php' OR $_SERVER['SCRIPT_NAME'] == '/beobachtung.php' OR $_SERVER['SCRIPT_NAME'] == '/transferliste.php') { echo ' id="current"'; } ?>><a href="/transfermarkt.php"><?php echo _('Transfers'); ?></a>
+<li class="menueintrag"<?php if ($_SERVER['SCRIPT_NAME'] == '/mercado_fichajes.php' OR $_SERVER['SCRIPT_NAME'] == '/pregonero.php' OR $_SERVER['SCRIPT_NAME'] == '/cesion_mercado.php' OR $_SERVER['SCRIPT_NAME'] == '/lig_transferencias.php' OR $_SERVER['SCRIPT_NAME'] == '/observacion.php' OR $_SERVER['SCRIPT_NAME'] == '/lista_transferencias.php') { echo ' id="current"'; } ?>><a href="/mercado_fichajes.php"><?php echo _('Transfers'); ?></a>
 	<ul>
-		<li><a href="/transfermarkt.php"><?php echo _('Kaufen'); ?></a></li>
-		<li><a href="/transfermarkt_leihe.php"><?php echo _('Leihen'); ?></a></li>
-		<?php if ($cookie_team != '__'.$cookie_id) { ?><li><a href="/beobachtung.php"><?php echo _('Beobachtung'); ?></a></li><?php } ?>
-		<li><a href="/lig_transfers.php"><?php echo _('Abgeschlossen'); ?></a></li>
-		<li><a href="/marktschreier.php"><?php echo _('Marktschreier'); ?></a></li>
+		<li><a href="/mercado_fichajes.php"><?php echo _('Kaufen'); ?></a></li>
+		<li><a href="/cesion_mercado.php"><?php echo _('Leihen'); ?></a></li>
+		<?php if ($cookie_team != '__'.$cookie_id) { ?><li><a href="/observacion.php"><?php echo _('Beobachtung'); ?></a></li><?php } ?>
+		<li><a href="/lig_transferencias.php"><?php echo _('Abgeschlossen'); ?></a></li>
+		<li><a href="/pregonero.php"><?php echo _('Marktschreier'); ?></a></li>
 	</ul>
 </li>
-<?php if ($cookie_team != '__'.$cookie_id) { ?><li class="menueintrag"<?php if ($_SERVER['SCRIPT_NAME'] == '/kader.php' OR $_SERVER['SCRIPT_NAME'] == '/aufstellung.php' OR $_SERVER['SCRIPT_NAME'] == '/taktik.php' OR $_SERVER['SCRIPT_NAME'] == '/vertraege.php' OR $_SERVER['SCRIPT_NAME'] == '/kalender.php' OR $_SERVER['SCRIPT_NAME'] == '/entwicklung.php') { echo ' id="current"'; } ?>><a href="/aufstellung.php"><?php echo _('Team'); ?></a>
+<?php if ($cookie_team != '__'.$cookie_id) { ?><li class="menueintrag"<?php if ($_SERVER['SCRIPT_NAME'] == '/plantilla.php' OR $_SERVER['SCRIPT_NAME'] == '/alineacion.php' OR $_SERVER['SCRIPT_NAME'] == '/tactica.php' OR $_SERVER['SCRIPT_NAME'] == '/contratos.php' OR $_SERVER['SCRIPT_NAME'] == '/calendario.php' OR $_SERVER['SCRIPT_NAME'] == '/desarrollo.php') { echo ' id="current"'; } ?>><a href="/alineacion.php"><?php echo _('Team'); ?></a>
 	<ul>
-		<li><a href="/aufstellung.php"><?php echo _('Aufstellung'); ?></a></li>
-		<li><a href="/taktik.php"><?php echo _('Taktik'); ?></a></li>
-		<li><a href="/kader.php"><?php echo _('Kader'); ?></a></li>
-		<li><a href="/entwicklung.php"><?php echo _('Entwicklung'); ?></a></li>
-		<li><a href="/vertraege.php"><?php echo _('Verträge'); ?></a></li>
-		<li><a href="/kalender.php"><?php echo _('Kalender'); ?></a></li>
+		<li><a href="/alineacion.php"><?php echo _('Aufstellung'); ?></a></li>
+		<li><a href="/tactica.php"><?php echo _('Taktik'); ?></a></li>
+		<li><a href="/plantilla.php"><?php echo _('Kader'); ?></a></li>
+		<li><a href="/desarrollo.php"><?php echo _('Entwicklung'); ?></a></li>
+		<li><a href="/contratos.php"><?php echo _('Verträge'); ?></a></li>
+		<li><a href="/calendario.php"><?php echo _('Kalender'); ?></a></li>
 	</ul>
 </li><?php } ?>
-<li class="menueintrag"<?php if ($_SERVER['SCRIPT_NAME'] == '/lig_tabelle.php' OR $_SERVER['SCRIPT_NAME'] == '/pokal.php' OR $_SERVER['SCRIPT_NAME'] == '/cup.php' OR $_SERVER['SCRIPT_NAME'] == '/lig_testspiele_liste.php' OR $_SERVER['SCRIPT_NAME'] == '/testWuensche.php') { echo ' id="current"'; } ?>><a href="/lig_tabelle.php"><?php echo _('Saison'); ?></a>
+<li class="menueintrag"<?php if ($_SERVER['SCRIPT_NAME'] == '/lig_tabla.php' OR $_SERVER['SCRIPT_NAME'] == '/copa.php' OR $_SERVER['SCRIPT_NAME'] == '/copa_int.php' OR $_SERVER['SCRIPT_NAME'] == '/lig_lista_amistosos.php' OR $_SERVER['SCRIPT_NAME'] == '/deseosAmistosos.php') { echo ' id="current"'; } ?>><a href="/lig_tabla.php"><?php echo _('Saison'); ?></a>
 	<ul>
-		<li><a href="/lig_tabelle.php"><?php echo _('Liga'); ?></a></li>
-		<li><a href="/pokal.php"><?php echo _('Int. Pokal'); ?></a></li>
-		<li><a href="/cup.php"><?php echo _('Nat. Cup'); ?></a></li>
-		<li><a href="/lig_testspiele_liste.php"><?php echo _('Testspiele'); ?></a></li>
-		<li><a href="/testWuensche.php"><?php echo _('Testwünsche'); ?></a></li>
+		<li><a href="/lig_tabla.php"><?php echo _('Liga'); ?></a></li>
+		<li><a href="/copa.php"><?php echo _('Int. Pokal'); ?></a></li>
+		<li><a href="/copa_int.php"><?php echo _('Nat. Cup'); ?></a></li>
+		<li><a href="/lig_lista_amistosos.php"><?php echo _('Testspiele'); ?></a></li>
+		<li><a href="/deseosAmistosos.php"><?php echo _('Testwünsche'); ?></a></li>
 	</ul>
 </li>
-<li class="menueintrag"<?php if (substr($_SERVER['SCRIPT_NAME'], 1, 4) == 'ver_') { echo ' id="current"'; } ?>><a href="/ver_finanzen.php"><?php echo _('Verein'); ?></a>
+<li class="menueintrag"<?php if (substr($_SERVER['SCRIPT_NAME'], 1, 4) == 'ges_') { echo ' id="current"'; } ?>><a href="/ges_finanzas.php"><?php echo _('Verein'); ?></a>
 	<ul>
-		<li><a href="/ver_finanzen.php"><?php echo _('Finanzen'); ?></a></li>
-		<li><a href="/ver_buchungen.php"><?php echo _('Buchungen'); ?></a></li>
-		<li><a href="/ver_personal.php"><?php echo _('Personal'); ?></a></li>
-		<li><a href="/ver_stadion.php"><?php echo _('Stadion'); ?></a></li>
-		<li><a href="/ver_lotto.php"><?php echo _('Lotto'); ?></a></li>
+		<li><a href="/ges_finanzas.php"><?php echo _('Finanzen'); ?></a></li>
+		<li><a href="/ges_reservas.php"><?php echo _('Buchungen'); ?></a></li>
+		<li><a href="/ges_personal.php"><?php echo _('Personal'); ?></a></li>
+		<li><a href="/ges_estadio.php"><?php echo _('Stadion'); ?></a></li>
+		<li><a href="/ges_loteria.php"><?php echo _('Lotto'); ?></a></li>
 	</ul>
 </li>
-<li class="menueintrag"<?php if ($_SERVER['SCRIPT_NAME'] == '/leihgaben.php' OR $_SERVER['SCRIPT_NAME'] == '/testspiele.php' OR $_SERVER['SCRIPT_NAME'] == '/ligaTausch.php') { echo ' id="current"'; } ?>><a href="/leihgaben.php"><?php echo _('Anfragen'); ?> (<?php echo intval($_SESSION['last_testspiele_anzahl']+$_SESSION['last_leihgaben_anzahl']+$_SESSION['last_ligaTausch_anzahl']); ?>)</a>
+<li class="menueintrag"<?php if ($_SERVER['SCRIPT_NAME'] == '/cesiones.php' OR $_SERVER['SCRIPT_NAME'] == '/amistosos.php' OR $_SERVER['SCRIPT_NAME'] == '/cambioLiga.php') { echo ' id="current"'; } ?>><a href="/cesiones.php"><?php echo _('Anfragen'); ?> (<?php echo intval($_SESSION['last_testspiele_anzahl']+$_SESSION['last_leihgaben_anzahl']+$_SESSION['last_ligaTausch_anzahl']); ?>)</a>
 	<ul>
-		<li><a href="/leihgaben.php"><?php echo _('Leihgaben'); ?> (<?php echo $_SESSION['last_leihgaben_anzahl']; ?>)</a></li>
-		<li><a href="/testspiele.php"><?php echo _('Testspiele'); ?> (<?php echo $_SESSION['last_testspiele_anzahl']; ?>)</a></li>
-		<li><a href="/ligaTausch.php"><?php echo _('Ligatausch'); ?> (<?php echo $_SESSION['last_ligaTausch_anzahl']; ?>)</a></li>
+		<li><a href="/cesiones.php"><?php echo _('Leihgaben'); ?> (<?php echo $_SESSION['last_leihgaben_anzahl']; ?>)</a></li>
+		<li><a href="/amistosos.php"><?php echo _('Testspiele'); ?> (<?php echo $_SESSION['last_testspiele_anzahl']; ?>)</a></li>
+		<li><a href="/cambioLiga.php"><?php echo _('Ligatausch'); ?> (<?php echo $_SESSION['last_ligaTausch_anzahl']; ?>)</a></li>
 	</ul>
 </li>
-<li class="menueintrag"<?php if (substr($_SERVER['SCRIPT_NAME'], 0, 8) == '/support' OR $_SERVER['SCRIPT_NAME'] == '/tipps_des_tages.php' OR $_SERVER['SCRIPT_NAME'] == '/regeln.php' OR $_SERVER['REQUEST_URI'] == ('/post_schreiben.php?id='.CONFIG_OFFICIAL_USER)) { echo ' id="current"'; } ?>><a href="/support.php"><?php echo _('Support'); ?></a>
+<li class="menueintrag"<?php if (substr($_SERVER['SCRIPT_NAME'], 0, 8) == '/support' OR $_SERVER['SCRIPT_NAME'] == '/consejos_del_dia.php' OR $_SERVER['SCRIPT_NAME'] == '/reglas.php' OR $_SERVER['REQUEST_URI'] == ('/escribir_correo.php?id='.CONFIG_OFFICIAL_USER)) { echo ' id="current"'; } ?>><a href="/support.php"><?php echo _('Support'); ?></a>
 	<ul>
 		<li><a href="/support.php"><?php echo _('Support'); ?></a></li>
-		<li><a href="/wio.php#teamList"><?php echo _('Post ans Team'); ?></a></li>
-		<li><a href="/tipps_des_tages.php"><?php echo _('Kurztipps'); ?></a></li>
-		<li><a href="/regeln.php"><?php echo _('Regeln'); ?></a></li>
-		<?php if ($_SESSION['status'] == 'Helfer' || $_SESSION['status'] == 'Admin') { ?><li><a href="/forum.php"><?php echo _('Archiv'); ?></a></li><?php } ?>
+		<li><a href="/quien_esta_en_linea.php#teamList"><?php echo _('Post ans Team'); ?></a></li>
+		<li><a href="/consejos_del_dia.php"><?php echo _('Kurztipps'); ?></a></li>
+		<li><a href="/reglas.php"><?php echo _('Regeln'); ?></a></li>
+		<?php if ($_SESSION['status'] == 'Helfer' || $_SESSION['status'] == 'Admin') { ?><li><a href="/foro.php"><?php echo _('Archiv'); ?></a></li><?php } ?>
 	</ul>
 </li>
-<li class="menueintrag"><a href="/<?php if ($_SESSION['pMaxGebot'] == 1) { echo 'logoutNewUser.php'; } else { echo 'logout.php'; } ?>"><?php echo _('Logout'); ?></a></li>
+<li class="menueintrag"><a href="/<?php if ($_SESSION['pMaxGebot'] == 1) { echo 'logoutNuevoUsuario.php'; } else { echo 'logout.php'; } ?>"><?php echo _('Logout'); ?></a></li>
 <?php } ?>
 </ul>
 </div>
@@ -208,7 +208,7 @@ if ($_SESSION['last_ligaTausch_check'] < $vor3Minuten) {
 <p>
 <input type="hidden" name="returnURL" value="<?php echo htmlentities($_SERVER['REQUEST_URI']); ?>" /><input type="submit" value="<?php echo _('Einloggen'); ?>" />
 </p>
-<p><b><a href="/passwort_vergessen.php"><?php echo _('Passwort vergessen?'); ?></a></b></p>
+<p><b><a href="/recuperar_contrasena.php"><?php echo _('Passwort vergessen?'); ?></a></b></p>
 </form>
 </div>
 <h1><?php echo _('Demo-Account'); ?></h1>
@@ -219,9 +219,9 @@ if ($_SESSION['last_ligaTausch_check'] < $vor3Minuten) {
 <?php } else { ?>
 <div id="sidebar">
 <div id="top_box_nav">
-<a href="/wio.php" class="blue"><?php echo _('Wer ist online?'); ?></a>
-<a href="/posteingang.php" class="lightgrey"><?php echo _('Posteingang'); ?> (<?php echo (isset($_SESSION['last_pn_anzahl']) ? $_SESSION['last_pn_anzahl'] : 0); ?> <?php echo _('ungelesen'); ?>)</a>
-<a href="/freunde.php" class="red"><?php echo _('Freunde'); ?> (<?php echo (isset($_SESSION['last_freunde_anzahl']) ? $_SESSION['last_freunde_anzahl'] : 0); ?> <?php echo _('Anfragen'); ?>)</a>
+<a href="/quien_esta_en_linea.php" class="blue"><?php echo _('Wer ist online?'); ?></a>
+<a href="/bandeja_entrada.php" class="lightgrey"><?php echo _('Posteingang'); ?> (<?php echo (isset($_SESSION['last_pn_anzahl']) ? $_SESSION['last_pn_anzahl'] : 0); ?> <?php echo _('ungelesen'); ?>)</a>
+<a href="/amigos.php" class="red"><?php echo _('Freunde'); ?> (<?php echo (isset($_SESSION['last_freunde_anzahl']) ? $_SESSION['last_freunde_anzahl'] : 0); ?> <?php echo _('Anfragen'); ?>)</a>
 <a href="/chat.php" class="grey"><?php echo _('Chat'); ?> (<?php echo (isset($_SESSION['last_chatter_anzahl']) ? $_SESSION['last_chatter_anzahl'] : 0); ?> <?php echo _('online'); ?>)</a>
 <a href="/manager.php?id=<?php echo $cookie_id; ?>" class="green"><?php echo _('Mein Profil'); ?></a>
 </div>
@@ -229,19 +229,19 @@ if ($_SESSION['last_ligaTausch_check'] < $vor3Minuten) {
 if ($_SESSION['status'] == 'Helfer' || $_SESSION['status'] == 'Admin') { // fuer Team das Helfer-Menue
 	echo '<h1>'._('Support-Menü').'</h1>';
 	echo '<div class="left-box navBlockLinks">';
-	echo '<a href="/multiAccounts.php">'._('Multi-Accounts').'</a>';
-	echo '<a href="/chat_reports.php">'._('Chat-Reports').'</a>';
-	echo '<a href="/geloeschteAccounts.php">'._('Gelöschte Accounts').'</a>';
-	echo '<a href="/neueAccounts.php">'._('Neue Accounts').'</a>';
-	echo '<a href="/gruendeFuerLoeschung.php">'._('Gründe für Löschung').'</a>';
-	echo '<a href="/sanktionen.php">'._('Kontrollzentrum').'</a>';
+	echo '<a href="/cuentasMultiples.php">'._('Multi-Accounts').'</a>';
+	echo '<a href="/reportes_chat.php">'._('Chat-Reports').'</a>';
+	echo '<a href="/cuentasEliminadas.php">'._('Gelöschte Accounts').'</a>';
+	echo '<a href="/nuevasCuentas.php">'._('Neue Accounts').'</a>';
+	echo '<a href="/razonesBorrado.php">'._('Gründe für Löschung').'</a>';
+	echo '<a href="/sanciones.php">'._('Kontrollzentrum').'</a>';
 	echo '</div>';
 }
 
 // show random short hints
-echo '<h1>'._('Tipp des Tages').' (<a href="/tipps_des_tages.php">'._('Alle').'</a>)</h1>';
+echo '<h1>'._('Tipp des Tages').' (<a href="/consejos_del_dia.php">'._('Alle').'</a>)</h1>';
 echo '<div class="left-box"><p>';
-$tipps_des_tages = file('tipps_des_tages.php.txt');
+$tipps_des_tages = file('consejos_del_dia.php.txt');
 // ignore the first line (PHP tag)
 $randomHintIndex = mt_rand(1, count($tipps_des_tages)-1);
 // be careful with the input for eval() here (which should only contain a gettext call)
@@ -278,7 +278,7 @@ while ($nxt3 = mysql_fetch_assoc($nxt2)) {
 	}
 	// LIVE ODER ERGEBNIS ENDE
 	$nxt3_typ = substr($nxt3['typ'], 0, 1);
-	$nextGamesHTML .= '<a href="/spielbericht.php?id='.$nxt3['id'].$lastActionZusatz.'">'.$homeGuest.' '.$nxt3_typ.': '.$nxt3_gegner.' ('.$ergebnis_live.')</a>';
+	$nextGamesHTML .= '<a href="/informe_partido.php?id='.$nxt3['id'].$lastActionZusatz.'">'.$homeGuest.' '.$nxt3_typ.': '.$nxt3_gegner.' ('.$ergebnis_live.')</a>';
 }
 $nextGamesHTML .= '</div>';
 echo $nextGamesHTML;

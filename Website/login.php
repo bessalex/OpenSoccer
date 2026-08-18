@@ -36,7 +36,7 @@ if ((isset($_POST['lusername']) && isset($_POST['lpassword'])) OR $valid_bigpoin
         $lologin4 = mysql_fetch_assoc($lologin2);
 		if (substr($lologin4['username'], 0, 9) == 'GELOESCHT') {
 			$_SESSION['loggedin'] = 0;
-			$hadresse = 'Location: /geloeschterAccount.php';
+			$hadresse = 'Location: /cuentaEliminada.php';
 		}
 		else {
 			if ($lologin4['team'] == '__'.$lologin4['ids']) {
@@ -125,7 +125,7 @@ if ((isset($_POST['lusername']) && isset($_POST['lpassword'])) OR $valid_bigpoin
 			$hadresse = 'Location: /index.php';
 			// BIGPOINT NUTZERNAMEN ANFANG
 			if (substr($lologin4['username'], 0, 3) == 'BP_') {
-				$hadresse = 'Location: /bp_username_waehlen.php';
+				$hadresse = 'Location: /bp_elegir_usuario.php';
 				$_SESSION['bp_username'] = $lologin4['email'];
 			}
 			// BIGPOINT NUTZERNAMEN ENDE

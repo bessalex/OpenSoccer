@@ -5,7 +5,7 @@
 <script type="text/javascript">
 function nachladen() {
 	$.ajax({
-	  url: '/chat_engine.php',
+	  url: '/motor_chat.php',
 	  data: { aktion: 'letzte_nachrichten' },
 	  success: function(data) {
 		  $("#nachrichten").html(data);
@@ -15,7 +15,7 @@ function nachladen() {
 }
 function senden(nachricht) {
 	$.ajax({
-	  url: '/chat_engine.php',
+	  url: '/motor_chat.php',
 	  data: { nachricht: nachricht, aktion: 'nachricht_erzeugen' },
 	  success: function(data) {
 	      $("#contain").text(data);
@@ -39,7 +39,7 @@ if (mysql_num_rows($sql2) > 0) {
 	$sql3 = mysql_fetch_assoc($sql2);
 	$chatSperreBis = $sql3['MAX(chatSperre)'];
 	if ($chatSperreBis > 0 && $chatSperreBis > time()) {
-		addInfoBox(__('Du bist noch bis zum %1$s Uhr für die Kommunikation im Spiel gesperrt. Wenn Dir unklar ist warum, frage bitte das %2$s.', date('d.m.Y H:i', $chatSperreBis), '<a class="inText" href="/wio.php">'._('Support-Team').'</a>'));
+		addInfoBox(__('Du bist noch bis zum %1$s Uhr für die Kommunikation im Spiel gesperrt. Wenn Dir unklar ist warum, frage bitte das %2$s.', date('d.m.Y H:i', $chatSperreBis), '<a class="inText" href="/quien_esta_en_linea.php">'._('Support-Team').'</a>'));
 		include 'zz3.php';
 		exit;
 	}
@@ -86,7 +86,7 @@ while (date('w', $chatAbendTime) != 0 OR date('W', $chatAbendTime) % 2 != 0) {
 $timeout = getTimestamp('-1 hour');
 $up1 = "DELETE FROM ".$prefix."chatroom WHERE zeit < ".$timeout;
 $up2 = mysql_query($up1);
-echo '<p><strong>REPORT '._('Username').'</strong> '.__('schreiben, um einen User zu melden (nur bei %s)', '<a href="/regeln.php">'._('Regelverstoß').'</a>').'<br />';
+echo '<p><strong>REPORT '._('Username').'</strong> '.__('schreiben, um einen User zu melden (nur bei %s)', '<a href="/reglas.php">'._('Regelverstoß').'</a>').'<br />';
 echo '<strong>'._('Usernamen anklicken').'</strong>, '._('um einen User direkt anzusprechen');
 $timeout = getTimestamp('-120 seconds');
 $whosOn1 = "SELECT ids, username FROM ".$prefix."users WHERE last_chat > ".$timeout;
