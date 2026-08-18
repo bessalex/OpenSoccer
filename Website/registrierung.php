@@ -37,11 +37,11 @@ $last_ip = getUserIP();
 $fehler_gemacht = TRUE;
 if (strlen($_POST['reg_email']) > 0 && strlen($_POST['reg_benutzername']) > 0) {
     $email = mysql_real_escape_string(trim(strip_tags($_POST['reg_email'])));
-    $email_valide = preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i', $email);
+    $email_valide = (filter_var($email, FILTER_VALIDATE_EMAIL) !== false);
     if ($email_valide == TRUE) {
 		$username = mysql_real_escape_string(trim(strip_tags($_POST['reg_benutzername'])));
 		$username = str_replace('_', '', $username);
-		$password = mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9);
+		$password = (string) random_int(100000, 999999);
 		$password_db = md5('1'.$password.'29');
 		$blackList1 = "SELECT COUNT(*) FROM ".$prefix."blacklist WHERE email = '".md5($email)."' AND until > ".time();
 		$blackList2 = mysql_query($blackList1);
@@ -71,7 +71,7 @@ if (strlen($_POST['reg_email']) > 0 && strlen($_POST['reg_benutzername']) > 0) {
 				else {
 					echo '<p>'._('Vielen Dank, die Registrierung war erfolgreich! Wir senden Dir nun an die angegebene Adresse eine E-Mail mit Deinem Passwort zu. Mit dem Benutzernamen und dem zugeschickten Passwort kannst Du Dich danach einloggen.').'</p>';
 					echo '<p>'._('Logge Dich am besten ganz schnell ein - dann kannst Du dir das beste Team sichern! Viel Spaß!').'</p>';
-					email_senden($email, $username, $password, $last_ip);
+					email_senden($email, $username, $password);
 				}
 			}
 		}
