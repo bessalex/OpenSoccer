@@ -1,0 +1,88 @@
+Tabla,Campo,TipoDatoSQL,ModoAcceso,DescripcionFuncional
+man_spiele,id,int(11),Lectura/Escritura,Identificador único del partido simulado
+man_spiele,liga,varchar(32),Lectura,Identificador de la liga a la que pertenece el partido
+man_spiele,datum,int(11),Lectura,Timestamp de la fecha programada para el encuentro
+man_spiele,team1,varchar(255),Lectura,Nombre del equipo local
+man_spiele,team2,varchar(255),Lectura,Nombre del equipo visitante
+man_spiele,typ,enum('Liga'|'Pokal'|'Test'|'Cup'),Lectura,Tipo o categoría de competición del encuentro
+man_spiele,kennung,varchar(32),Lectura,Identificador único de la eliminatoria o cruce de copa
+man_spiele,simuliert,tinyint(1) unsigned,Lectura/Escritura,Indicador de si el partido ya ha sido simulado (0/1)
+man_spiele,ergebnis,varchar(255),Lectura/Escritura,Resultado final del encuentro (ej. '2:1')
+man_spiele,zuschauer,int(11) unsigned,Escritura,Cantidad total de espectadores asistentes al estadio
+man_spiele,tore1,text,Escritura,Lista de IDs de jugadores locales anotadores
+man_spiele,tore2,text,Escritura,Lista de IDs de jugadores visitantes anotadores
+man_spiele,bericht,text,Escritura,Texto descriptivo formateado con el acta/minuto a minuto
+man_spiele,ballbesitz1,tinyint(1) unsigned,Escritura,Porcentaje de posesión de balón del equipo local
+man_spiele,ballbesitz2,tinyint(1) unsigned,Escritura,Porcentaje de posesión de balón del equipo visitante
+man_spiele,fouls1,tinyint(1) unsigned,Escritura,Cantidad total de faltas cometidas por el equipo local
+man_spiele,fouls2,tinyint(1) unsigned,Escritura,Cantidad total de faltas cometidas por el equipo visitante
+man_spiele,karte_gelb1,varchar(255),Escritura,IDs de jugadores locales amonestados con tarjeta amarilla
+man_spiele,karte_gelb2,varchar(255),Escritura,IDs de jugadores visitantes amonestados con tarjeta amarilla
+man_spiele,karte_rot1,varchar(255),Escritura,IDs de jugadores locales expulsados con tarjeta roja
+man_spiele,karte_rot2,varchar(255),Escritura,IDs de jugadores visitantes expulsados con tarjeta roja
+man_spiele,abseits1,tinyint(1) unsigned,Escritura,Cantidad de fueras de juego señalados al equipo local
+man_spiele,abseits2,tinyint(1) unsigned,Escritura,Cantidad de fueras de juego señalados al equipo visitante
+man_spiele,schuesse1,tinyint(1) unsigned,Escritura,Cantidad total de disparos realizados por el equipo local
+man_spiele,schuesse2,tinyint(1) unsigned,Escritura,Cantidad total de disparos realizados por el equipo visitante
+man_spiele,simulationError,varchar(255),Escritura,Registro de errores técnicos durante la simulación
+man_teams,ids,varchar(32),Lectura,Identificador MD5 del club
+man_teams,name,varchar(255),Lectura,Nombre oficial del club
+man_teams,rank,tinyint(1) unsigned,Lectura,Posición actual en la tabla (usado para atractivo de público)
+man_teams,fanaufkommen,int(11) unsigned,Lectura,Masa base de aficionados del equipo
+man_teams,sponsor_a,decimal(10,2) unsigned,Lectura,Ingreso base fijo del patrocinador por partido
+man_teams,sponsor_s,decimal(10,2) unsigned,Lectura,Prima extra del patrocinador por victoria
+man_teams,elo,decimal(7,2) unsigned,Lectura,Puntuación de nivel ELO del club
+man_teams,punkte,int(11),Escritura,Puntos acumulados en la tabla de clasificación (+3/+1/+0)
+man_teams,tore,int(11),Escritura,Goles a favor acumulados en la temporada
+man_teams,gegentore,int(11),Escritura,Goles en contra acumulados en la temporada
+man_teams,sunS,tinyint(1) unsigned,Escritura,Contador de victorias de la temporada
+man_teams,sunU,tinyint(1) unsigned,Escritura,Contador de empates de la temporada
+man_teams,sunN,tinyint(1) unsigned,Escritura,Contador de derrotas de la temporada
+man_teams,friendlies,smallint(5) unsigned,Escritura,Contador de partidos amistosos ganados
+man_teams,friendlies_ges,smallint(5) unsigned,Escritura,Contador total de partidos amistosos disputados
+man_taktiken,team,varchar(32),Lectura,Identificador del equipo al que se aplica la táctica
+man_taktiken,spieltyp,enum('Liga'|'Pokal'|'Test'|'Cup'),Lectura,Competición a la que se aplica el esquema táctico
+man_taktiken,ausrichtung,tinyint(1),Lectura,Orientación táctica (Ultra-defensivo a Ultra-ofensivo)
+man_taktiken,geschw_auf,tinyint(1),Lectura,Velocidad en la elaboración de jugadas
+man_taktiken,pass_auf,tinyint(1),Lectura,Estilo de pase (Corto, Mixto, Largo)
+man_taktiken,risk_pass,tinyint(1),Lectura,Nivel de riesgo en pases profundos
+man_taktiken,druck,tinyint(1),Lectura,Nivel de presión en el campo (Afecta desgaste físico)
+man_taktiken,aggress,tinyint(1),Lectura,Agresividad en la marca (Afecta faltas y tarjetas)
+man_stadien,team,varchar(32),Lectura,ID del equipo propietario del estadio
+man_stadien,name,varchar(100),Lectura,Nombre comercial del estadio
+man_stadien,plaetze,int(11) unsigned,Lectura,Capacidad máxima de espectadores (asientos)
+man_stadien,preis,tinyint(1) unsigned,Lectura,Precio fijado de la entrada en euros
+man_spieler,ids,varchar(32),Lectura,Identificador MD5 del jugador
+man_spieler,team,varchar(32),Lectura,ID del club al que pertenece el jugador
+man_spieler,vorname,varchar(255),Lectura,Nombre de pila del jugador
+man_spieler,nachname,varchar(255),Lectura,Apellido del jugador
+man_spieler,position,char(1),Lectura,Posición táctica: T (Portero), A (Defensa), M (Medio), S (Delantero)
+man_spieler,frische,tinyint(1),Lectura/Escritura,Frescura física (0-100). Afecta rendimiento y se reduce tras jugar
+man_spieler,staerke,decimal(2,1) unsigned,Lectura,Nivel de fuerza actual del jugador (0.1 - 10.0)
+man_spieler,moral,decimal(5,2),Lectura/Escritura,Estado anímico/psicológico (0.00 - 100.00). Sube tras disputar partidos
+man_spieler,verletzung,tinyint(1),Lectura/Escritura,Días de baja por lesión (0 = Disponible)
+man_spieler,startelf_Liga,tinyint(1) unsigned,Lectura/Escritura,Indicador de alineación titular en partidos de Liga
+man_spieler,startelf_Pokal,tinyint(1) unsigned,Lectura/Escritura,Indicador de alineación titular en partidos de Copa
+man_spieler,startelf_Cup,tinyint(1) unsigned,Lectura/Escritura,Indicador de alineación titular en partidos de Copa Internacional
+man_spieler,startelf_Test,tinyint(1) unsigned,Lectura/Escritura,Indicador de alineación titular en partidos Amistosos
+man_spieler,spiele,tinyint(1) unsigned,Escritura,Contador de partidos disputados en la temporada actual
+man_spieler,spiele_gesamt,smallint(5) unsigned,Escritura,Contador total de partidos (usado para progresar en entrenamiento)
+man_spieler,spiele_verein,smallint(5) unsigned,Escritura,Contador histórico de partidos disputados en el club actual
+man_spieler,tore,int(11) unsigned,Escritura,Contador de goles marcados por el jugador
+man_spieler,pokalNurFuer,varchar(32),Escritura,Restricción de participación en Copa si jugó con otro club
+man_protokoll,team,varchar(32),Escritura,ID del club al que se envía la notificación/log
+man_protokoll,text,varchar(255),Escritura,Mensaje descriptivo (ej. reporte de lesión)
+man_protokoll,typ,varchar(255),Escritura,Categoría del evento ('Verletzung', 'Spieler', etc.)
+man_protokoll,zeit,int(11),Escritura,Timestamp del momento del evento
+man_spiele_kommentare,spiel,int(11) unsigned,Escritura,ID del partido asociado al comentario minuto a minuto
+man_spiele_kommentare,minute,tinyint(1) unsigned,Escritura,Minuto de juego en el que ocurre la acción
+man_spiele_kommentare,kommentar,text,Escritura,Frase descriptiva del lance del partido
+man_eloBuffer,teamID,varchar(32),Escritura,ID del equipo cuya puntuación ELO cambiará
+man_eloBuffer,pointsGained,decimal(7,2),Escritura,Puntos ELO ganados o perdidos (+/-)
+man_eloBuffer,ausfuehren,int(11),Escritura,Timestamp en el que se aplicará la actualización (+2 horas)
+man_buchungenBuffer,teamID,varchar(32),Escritura,ID del club al que se le abonará el dinero
+man_buchungenBuffer,verwendungszweck,varchar(255),Escritura,Concepto del ingreso ('Ticketverkauf' o 'Sponsoring')
+man_buchungenBuffer,betrag,decimal(12,2),Escritura,Importe económico en euros
+man_buchungenBuffer,ausfuehren,int(11),Escritura,Timestamp para diferir la transacción bancaria (+2 horas)
+man_zeitrechnung,letzte_simulation,varchar(255),Escritura,Fecha de la última jornada de liga simulada (YYYY-MM-DD)
+man_ligen,gespielt,tinyint(11) unsigned,Escritura,Contador de jornadas disputadas en la liga
