@@ -13,6 +13,195 @@ date_default_timezone_set('Europe/Berlin');
 ignore_user_abort(true);
 include 'config.php';
 
+// MySQL Polyfill for PHP 7+ / PHP 8+
+if (!function_exists('mysql_connect')) {
+    $GLOBALS['__mysqli_connection'] = null;
+
+    function mysql_connect($host = null, $user = null, $password = null, $new_link = false, $client_flags = 0) {
+        if ($host === null) {
+            $host = ini_get("mysqli.default_host");
+        }
+        if ($user === null) {
+            $user = ini_get("mysqli.default_user");
+        }
+        if ($password === null) {
+            $password = ini_get("mysqli.default_pw");
+        }
+
+        $port = ini_get("mysqli.default_port");
+        $socket = ini_get("mysqli.default_socket");
+        if (strpos((string)$host, ':') !== false) {
+            list($host, $port_or_socket) = explode(':', $host, 2);
+            if (is_numeric($port_or_socket)) {
+                $port = (int)$port_or_socket;
+            } else {
+                $socket = $port_or_socket;
+            }
+        }
+
+        $link = @mysqli_connect($host, $user, $password, "", $port ? (int)$port : 3306, $socket);
+        if ($link) {
+            mysqli_set_charset($link, 'utf8');
+            $GLOBALS['__mysqli_connection'] = $link;
+            return $link;
+        }
+        return false;
+    }
+
+    function mysql_select_db($database_name, $link_identifier = null) {
+        if ($link_identifier === null) {
+            $link_identifier = $GLOBALS['__mysqli_connection'];
+        }
+        if (!$link_identifier) {
+            return false;
+        }
+        return mysqli_select_db($link_identifier, $database_name);
+    }
+
+    function mysql_query($query, $link_identifier = null) {
+        if ($link_identifier === null) {
+            $link_identifier = $GLOBALS['__mysqli_connection'];
+        }
+        if (!$link_identifier) {
+            return false;
+        }
+        return mysqli_query($link_identifier, $query);
+    }
+
+    function mysql_fetch_assoc($result) {
+        if (!$result || !($result instanceof mysqli_result)) {
+            return false;
+        }
+        return mysqli_fetch_assoc($result);
+    }
+
+    function mysql_fetch_array($result, $result_type = MYSQLI_BOTH) {
+        if (!$result || !($result instanceof mysqli_result)) {
+            return false;
+        }
+        return mysqli_fetch_array($result, $result_type);
+    }
+
+    function mysql_fetch_row($result) {
+        if (!$result || !($result instanceof mysqli_result)) {
+            return false;
+        }
+        return mysqli_fetch_row($result);
+    }
+
+    function mysql_num_rows($result) {
+        if (!$result || !($result instanceof mysqli_result)) {
+            return false;
+        }
+        return mysqli_num_rows($result);
+    }
+
+    function mysql_affected_rows($link_identifier = null) {
+        if ($link_identifier === null) {
+            $link_identifier = $GLOBALS['__mysqli_connection'];
+        }
+        if (!$link_identifier) {
+            return -1;
+        }
+        return mysqli_affected_rows($link_identifier);
+    }
+
+    function mysql_real_escape_string($unescaped_string, $link_identifier = null) {
+        if ($link_identifier === null) {
+            $link_identifier = $GLOBALS['__mysqli_connection'];
+        }
+        if (!$link_identifier) {
+            return addslashes((string)$unescaped_string);
+        }
+        return mysqli_real_escape_string($link_identifier, (string)$unescaped_string);
+    }
+
+    function mysql_result($result, $row, $field = 0) {
+        if (!$result || !($result instanceof mysqli_result)) {
+            return false;
+        }
+        if (mysqli_num_rows($result) <= $row) {
+            return false;
+        }
+        mysqli_data_seek($result, $row);
+        $data = mysqli_fetch_array($result, MYSQLI_BOTH);
+        if (isset($data[$field])) {
+            return $data[$field];
+        }
+        return false;
+    }
+
+    function mysql_insert_id($link_identifier = null) {
+        if ($link_identifier === null) {
+            $link_identifier = $GLOBALS['__mysqli_connection'];
+        }
+        if (!$link_identifier) {
+            return false;
+        }
+        return mysqli_insert_id($link_identifier);
+    }
+
+    function mysql_error($link_identifier = null) {
+        if ($link_identifier === null) {
+            $link_identifier = $GLOBALS['__mysqli_connection'];
+        }
+        if (!$link_identifier) {
+            return mysqli_connect_error();
+        }
+        return mysqli_error($link_identifier);
+    }
+
+    function mysql_errno($link_identifier = null) {
+        if ($link_identifier === null) {
+            $link_identifier = $GLOBALS['__mysqli_connection'];
+        }
+        if (!$link_identifier) {
+            return mysqli_connect_errno();
+        }
+        return mysqli_errno($link_identifier);
+    }
+
+    function mysql_close($link_identifier = null) {
+        if ($link_identifier === null) {
+            $link_identifier = $GLOBALS['__mysqli_connection'];
+        }
+        if (!$link_identifier) {
+            return false;
+        }
+        $res = mysqli_close($link_identifier);
+        $GLOBALS['__mysqli_connection'] = null;
+        return $res;
+    }
+
+    function mysql_free_result($result) {
+        if (!$result || !($result instanceof mysqli_result)) {
+            return false;
+        }
+        mysqli_free_result($result);
+        return true;
+    }
+
+    function mysql_set_charset($charset, $link_identifier = null) {
+        if ($link_identifier === null) {
+            $link_identifier = $GLOBALS['__mysqli_connection'];
+        }
+        if (!$link_identifier) {
+            return false;
+        }
+        return mysqli_set_charset($link_identifier, $charset);
+    }
+
+    function mysql_ping($link_identifier = null) {
+        if ($link_identifier === null) {
+            $link_identifier = $GLOBALS['__mysqli_connection'];
+        }
+        if (!$link_identifier) {
+            return false;
+        }
+        return mysqli_ping($link_identifier);
+    }
+}
+
 // connect to the database
 mysql_connect(CONFIG_DATABASE_HOST, CONFIG_DATABASE_USERNAME, CONFIG_DATABASE_PASSWORD) or die ('Falsche MySQL-Daten!');
 mysql_select_db(CONFIG_DATABASE_NAME) or die ('Datenbank existiert nicht!');
