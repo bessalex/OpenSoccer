@@ -61,7 +61,7 @@ Du hast auf ein neues Passwort angefordert.
 Dein Neues Passwort lautet: '.$newpw.'
 Du musst das neue Passwort aber noch aktivieren, indem Du den folgenden Link anklickst:
 
-http://'.CONFIG_SITE_DOMAIN.'/passwort_vergessen.php?e='.$user.'&k='.$key.'
+'.getBaseURL().'/passwort_vergessen.php?e='.$user.'&k='.$key.'
 
 Wir wünschen Dir noch viel Spaß beim Managen.
 
