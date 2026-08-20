@@ -6,6 +6,10 @@ header('Content-Type: text/html; charset=utf-8');
 header('X-Frame-Options: sameorigin');
 // prevent content sniffing (MIME sniffing)
 header('X-Content-Type-Options: nosniff');
+// XSS protection header
+header('X-XSS-Protection: 1; mode=block');
+// referrer policy
+header('Referrer-Policy: strict-origin-when-cross-origin');
 // remove unnecessary HTTP headers
 header_remove('X-Powered-By');
 
