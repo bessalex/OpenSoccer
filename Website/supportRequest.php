@@ -87,7 +87,7 @@ if (($_SESSION['status'] == 'Admin' || $_SESSION['status'] == 'Helfer') && $sql3
 		// AUTOR DER ANFRAGE PER POST BENACHRICHTIGEN ANFANG
 		if ($setOpen != 1) {
             $betreff = __('Support: Anfrage #%s', id2secure($sql3['id']));
-            $notifyText = _('Hallo').',<br /><br />'._('vielen Dank für Deine Beteiligung im Support-Forum. Eine Deiner Anfragen wurde jetzt geschlossen, Du findest sie hier:').'<br />http://'.CONFIG_SITE_DOMAIN.'/supportRequest.php?id='.id2secure($sql3['id']).'<br /><br />'._('Sportliche Grüße').'<br />'.CONFIG_SITE_NAME.'<br />'.CONFIG_SITE_DOMAIN;
+            $notifyText = _('Hallo').',<br /><br />'._('vielen Dank für Deine Beteiligung im Support-Forum. Eine Deiner Anfragen wurde jetzt geschlossen, Du findest sie hier:').'<br />'.getBaseURL().'/supportRequest.php?id='.id2secure($sql3['id']).'<br /><br />'._('Sportliche Grüße').'<br />'.CONFIG_SITE_NAME.'<br />'.CONFIG_SITE_DOMAIN;
             $sql1 = "INSERT INTO ".$prefix."pn (von, an, titel, inhalt, zeit, in_reply_to) VALUES ('".CONFIG_OFFICIAL_USER."', '".$sql3['author']."', '".$betreff."', '".$notifyText."', ".time().", '')";
 			$sql2 = mysql_query($sql1);
 			$sql1 = "UPDATE ".$prefix."pn SET ids = MD5(id) WHERE ids = ''";
