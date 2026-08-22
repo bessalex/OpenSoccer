@@ -36,7 +36,7 @@ if (mysql_num_rows($u4) != 0) {
     		case 2: $prozentsatz_vom_jackpot = 0.05; break;
     		case 3: $prozentsatz_vom_jackpot = 0.15; break;
     		case 4: $prozentsatz_vom_jackpot = 0.8; break;
-    		default: continue; break;
+		default: break;
     	}
     	$anteil_fuer_diese_gruppe = $get_jackpot3['jackpot']*$prozentsatz_vom_jackpot;
     	$anteil_fuer_jeden_aus_gruppe = floor($anteil_fuer_diese_gruppe/$gewinner_mit_i_richtigen_cnt);

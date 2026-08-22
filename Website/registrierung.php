@@ -71,7 +71,7 @@ if (strlen($_POST['reg_email']) > 0 && strlen($_POST['reg_benutzername']) > 0) {
 				else {
 					echo '<p>'._('Vielen Dank, die Registrierung war erfolgreich! Wir senden Dir nun an die angegebene Adresse eine E-Mail mit Deinem Passwort zu. Mit dem Benutzernamen und dem zugeschickten Passwort kannst Du Dich danach einloggen.').'</p>';
 					echo '<p>'._('Logge Dich am besten ganz schnell ein - dann kannst Du dir das beste Team sichern! Viel Spaß!').'</p>';
-					email_senden($email, $username, $password, $last_ip);
+					email_senden($email, $username, $password);
 				}
 			}
 		}
