@@ -995,7 +995,7 @@ CREATE TABLE `man_users` (
   `ids` varchar(32) NOT NULL,
   `email` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `regdate` int(11) NOT NULL DEFAULT '0',
   `last_login` int(11) NOT NULL DEFAULT '0',
   `last_chat` int(11) NOT NULL DEFAULT '0',
@@ -1062,7 +1062,7 @@ CREATE TABLE `man_users_newpw` (
   `user` varchar(32) NOT NULL,
   `zeit` int(11) NOT NULL,
   `keywert` varchar(32) NOT NULL,
-  `newpw` varchar(32) NOT NULL,
+  `newpw` varchar(255) NOT NULL,
   PRIMARY KEY (`user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
