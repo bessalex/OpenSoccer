@@ -995,7 +995,7 @@ CREATE TABLE `man_users` (
   `ids` varchar(32) NOT NULL,
   `email` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `regdate` int(11) NOT NULL DEFAULT '0',
   `last_login` int(11) NOT NULL DEFAULT '0',
   `last_chat` int(11) NOT NULL DEFAULT '0',
