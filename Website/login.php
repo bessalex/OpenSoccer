@@ -24,16 +24,35 @@ if ((isset($_POST['lusername']) && isset($_POST['lpassword'])) OR $valid_bigpoin
         // WENN DAS LOGIN-FORMULAR AUSGEFÜLLT WURDE
         $loemail = mysql_real_escape_string($_POST['lusername']);
         $lopassword = trim($_POST['lpassword']);
-        $lopassword_salted = md5('1'.$lopassword.'29');
-        $lologin1 = "SELECT id, ids, email, username, status, liga, team, regdate, last_login, readSticky, multiSperre, acceptedRules, hasLicense FROM ".$prefix."users WHERE (email = '".$loemail."' OR username = '".$loemail."') AND password = '".$lopassword_salted."'";
+        $lologin1 = "SELECT id, ids, email, username, password, status, liga, team, regdate, last_login, readSticky, multiSperre, acceptedRules, hasLicense FROM ".$prefix."users WHERE email = '".$loemail."' OR username = '".$loemail."'";
     }
     else {
-        $lologin1 = "SELECT id, ids, email, username, status, liga, team, regdate, last_login, readSticky, multiSperre, acceptedRules, hasLicense FROM ".$prefix."users WHERE ids = '".$valid_bigpoint_user."'";
+        $lologin1 = "SELECT id, ids, email, username, password, status, liga, team, regdate, last_login, readSticky, multiSperre, acceptedRules, hasLicense FROM ".$prefix."users WHERE ids = '".$valid_bigpoint_user."'";
     }
     $lologin2 = mysql_query($lologin1);
     $lologin3 = mysql_num_rows($lologin2);
     if ($lologin3 == 1) {
         $lologin4 = mysql_fetch_assoc($lologin2);
+        $password_valid = false;
+        if ($valid_bigpoint_user != '') {
+            $password_valid = true;
+        }
+        elseif (password_verify($lopassword, $lologin4['password'])) {
+            $password_valid = true;
+            if (password_needs_rehash($lologin4['password'], PASSWORD_DEFAULT)) {
+                $new_hash = password_hash($lopassword, PASSWORD_DEFAULT);
+                $updatePw1 = "UPDATE ".$prefix."users SET password = '".mysql_real_escape_string($new_hash)."' WHERE ids = '".$lologin4['ids']."'";
+                mysql_query($updatePw1);
+            }
+        }
+        elseif ($lologin4['password'] === md5('1'.$lopassword.'29')) {
+            $password_valid = true;
+            $new_hash = password_hash($lopassword, PASSWORD_DEFAULT);
+            $updatePw1 = "UPDATE ".$prefix."users SET password = '".mysql_real_escape_string($new_hash)."' WHERE ids = '".$lologin4['ids']."'";
+            mysql_query($updatePw1);
+        }
+
+        if ($password_valid) {
 		if (substr($lologin4['username'], 0, 9) == 'GELOESCHT') {
 			$_SESSION['loggedin'] = 0;
 			$hadresse = 'Location: /geloeschterAccount.php';
@@ -162,6 +181,7 @@ if ((isset($_POST['lusername']) && isset($_POST['lpassword'])) OR $valid_bigpoin
 					$hadresse = 'Location: '.trim(strip_tags($_POST['returnURL']));
 				}
 			}
+		}
 		}
     }
 }
