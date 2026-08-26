@@ -78,14 +78,20 @@ $pw_meldung = _('Dein Passwort konnte leider nicht geändert werden. Bitte versu
     if ($pw_neu1 == $pw_neu2) {
         if (mb_strlen($pw_neu1) >= 6) {
             if ($pw_neu1 != $pw_alt) {
-                $pw_alt = md5('1'.$pw_alt.'29');
-                $pw_neu = md5('1'.$pw_neu1.'29');
-                $sql1 = "UPDATE ".$prefix."users SET password = '".$pw_neu."' WHERE password = '".$pw_alt."' AND ids = '".$cookie_id."'";
-                $sql2 = mysql_query($sql1);
-                if ($sql2 != FALSE) {
-                    if (mysql_affected_rows() > 0) {
-                        setTaskDone('change_pw');
-                        $pw_meldung = _('Dein Passwort wurde erfolgreich geändert!');
+                $userPwQuery = mysql_query("SELECT password FROM ".$prefix."users WHERE ids = '".$cookie_id."'");
+                if ($userPwQuery && mysql_num_rows($userPwQuery) > 0) {
+                    $userData = mysql_fetch_assoc($userPwQuery);
+                    $currentDbPw = $userData['password'];
+                    if (password_verify($pw_alt, $currentDbPw) || md5('1'.$pw_alt.'29') === $currentDbPw) {
+                        $pw_neu_hash = password_hash($pw_neu1, PASSWORD_DEFAULT);
+                        $sql1 = "UPDATE ".$prefix."users SET password = '".$pw_neu_hash."' WHERE ids = '".$cookie_id."'";
+                        $sql2 = mysql_query($sql1);
+                        if ($sql2 != FALSE) {
+                            if (mysql_affected_rows() > 0) {
+                                setTaskDone('change_pw');
+                                $pw_meldung = _('Dein Passwort wurde erfolgreich geändert!');
+                            }
+                        }
                     }
                 }
             }
