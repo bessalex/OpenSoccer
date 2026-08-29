@@ -38,7 +38,7 @@ elseif (isset($_POST['email'])) {
 			$key = md5(md5($ou3['regdate']).md5(time()).'29');
 			$key_db = md5($key);
 			$newpw = mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9);
-			$newpw_db = md5('1'.$newpw.'29');
+			$newpw_db = mysql_real_escape_string(password_hash($newpw, PASSWORD_DEFAULT));
 			$in1 = "INSERT INTO ".$prefix."users_newpw (user, zeit, keywert, newpw) VALUES ('".$user."', '".time()."', '".$key_db."', '".$newpw_db."')";
 			$in2 = mysql_query($in1);
 			if ($in2 == FALSE) {
