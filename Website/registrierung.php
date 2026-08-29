@@ -42,7 +42,7 @@ if (strlen($_POST['reg_email']) > 0 && strlen($_POST['reg_benutzername']) > 0) {
 		$username = mysql_real_escape_string(trim(strip_tags($_POST['reg_benutzername'])));
 		$username = str_replace('_', '', $username);
 		$password = mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9).mt_rand(1,9);
-		$password_db = md5('1'.$password.'29');
+		$password_db = mysql_real_escape_string(password_hash($password, PASSWORD_DEFAULT));
 		$blackList1 = "SELECT COUNT(*) FROM ".$prefix."blacklist WHERE email = '".md5($email)."' AND until > ".time();
 		$blackList2 = mysql_query($blackList1);
 		$blackList3 = mysql_result($blackList2, 0);

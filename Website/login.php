@@ -20,20 +20,41 @@ unset($_SESSION['bp_id']);
 // BIGPOINT ENDE
 $hadresse = 'Location: /index.php';
 if ((isset($_POST['lusername']) && isset($_POST['lpassword'])) OR $valid_bigpoint_user != '') {
+    $lologin4 = null;
     if ($valid_bigpoint_user == '') {
         // WENN DAS LOGIN-FORMULAR AUSGEFÜLLT WURDE
         $loemail = mysql_real_escape_string($_POST['lusername']);
         $lopassword = trim($_POST['lpassword']);
-        $lopassword_salted = md5('1'.$lopassword.'29');
-        $lologin1 = "SELECT id, ids, email, username, status, liga, team, regdate, last_login, readSticky, multiSperre, acceptedRules, hasLicense FROM ".$prefix."users WHERE (email = '".$loemail."' OR username = '".$loemail."') AND password = '".$lopassword_salted."'";
+        $lologin1 = "SELECT id, ids, email, username, password, status, liga, team, regdate, last_login, readSticky, multiSperre, acceptedRules, hasLicense FROM ".$prefix."users WHERE (email = '".$loemail."' OR username = '".$loemail."')";
+        $lologin2 = mysql_query($lologin1);
+        if ($lologin2 && mysql_num_rows($lologin2) == 1) {
+            $userCandidate = mysql_fetch_assoc($lologin2);
+            $hashInDb = $userCandidate['password'];
+            if (password_verify($lopassword, $hashInDb)) {
+                $lologin4 = $userCandidate;
+                if (password_needs_rehash($hashInDb, PASSWORD_DEFAULT)) {
+                    $newHash = mysql_real_escape_string(password_hash($lopassword, PASSWORD_DEFAULT));
+                    mysql_query("UPDATE ".$prefix."users SET password = '".$newHash."' WHERE ids = '".$userCandidate['ids']."'");
+                }
+            }
+            else {
+                $legacyHash = md5('1'.$lopassword.'29');
+                if ($hashInDb === $legacyHash) {
+                    $lologin4 = $userCandidate;
+                    $newHash = mysql_real_escape_string(password_hash($lopassword, PASSWORD_DEFAULT));
+                    mysql_query("UPDATE ".$prefix."users SET password = '".$newHash."' WHERE ids = '".$userCandidate['ids']."'");
+                }
+            }
+        }
     }
     else {
-        $lologin1 = "SELECT id, ids, email, username, status, liga, team, regdate, last_login, readSticky, multiSperre, acceptedRules, hasLicense FROM ".$prefix."users WHERE ids = '".$valid_bigpoint_user."'";
+        $lologin1 = "SELECT id, ids, email, username, password, status, liga, team, regdate, last_login, readSticky, multiSperre, acceptedRules, hasLicense FROM ".$prefix."users WHERE ids = '".$valid_bigpoint_user."'";
+        $lologin2 = mysql_query($lologin1);
+        if ($lologin2 && mysql_num_rows($lologin2) == 1) {
+            $lologin4 = mysql_fetch_assoc($lologin2);
+        }
     }
-    $lologin2 = mysql_query($lologin1);
-    $lologin3 = mysql_num_rows($lologin2);
-    if ($lologin3 == 1) {
-        $lologin4 = mysql_fetch_assoc($lologin2);
+    if ($lologin4 !== null) {
 		if (substr($lologin4['username'], 0, 9) == 'GELOESCHT') {
 			$_SESSION['loggedin'] = 0;
 			$hadresse = 'Location: /geloeschterAccount.php';
