@@ -78,14 +78,28 @@ $pw_meldung = _('Dein Passwort konnte leider nicht geändert werden. Bitte versu
     if ($pw_neu1 == $pw_neu2) {
         if (mb_strlen($pw_neu1) >= 6) {
             if ($pw_neu1 != $pw_alt) {
-                $pw_alt = md5('1'.$pw_alt.'29');
-                $pw_neu = md5('1'.$pw_neu1.'29');
-                $sql1 = "UPDATE ".$prefix."users SET password = '".$pw_neu."' WHERE password = '".$pw_alt."' AND ids = '".$cookie_id."'";
-                $sql2 = mysql_query($sql1);
-                if ($sql2 != FALSE) {
-                    if (mysql_affected_rows() > 0) {
-                        setTaskDone('change_pw');
-                        $pw_meldung = _('Dein Passwort wurde erfolgreich geändert!');
+                $check_user_sql = "SELECT password FROM ".$prefix."users WHERE ids = '".$cookie_id."'";
+                $check_user_res = mysql_query($check_user_sql);
+                if ($check_user_res && mysql_num_rows($check_user_res) == 1) {
+                    $check_user_row = mysql_fetch_assoc($check_user_res);
+                    $old_pw_valid = FALSE;
+                    if (password_verify($pw_alt, $check_user_row['password'])) {
+                        $old_pw_valid = TRUE;
+                    }
+                    elseif (md5('1'.$pw_alt.'29') === $check_user_row['password']) {
+                        $old_pw_valid = TRUE;
+                    }
+
+                    if ($old_pw_valid) {
+                        $pw_neu = password_hash($pw_neu1, PASSWORD_DEFAULT);
+                        $sql1 = "UPDATE ".$prefix."users SET password = '".$pw_neu."' WHERE ids = '".$cookie_id."'";
+                        $sql2 = mysql_query($sql1);
+                        if ($sql2 != FALSE) {
+                            if (mysql_affected_rows() > 0) {
+                                setTaskDone('change_pw');
+                                $pw_meldung = _('Dein Passwort wurde erfolgreich geändert!');
+                            }
+                        }
                     }
                 }
             }
