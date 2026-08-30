@@ -24,16 +24,36 @@ if ((isset($_POST['lusername']) && isset($_POST['lpassword'])) OR $valid_bigpoin
         // WENN DAS LOGIN-FORMULAR AUSGEFÜLLT WURDE
         $loemail = mysql_real_escape_string($_POST['lusername']);
         $lopassword = trim($_POST['lpassword']);
-        $lopassword_salted = md5('1'.$lopassword.'29');
-        $lologin1 = "SELECT id, ids, email, username, status, liga, team, regdate, last_login, readSticky, multiSperre, acceptedRules, hasLicense FROM ".$prefix."users WHERE (email = '".$loemail."' OR username = '".$loemail."') AND password = '".$lopassword_salted."'";
+        $lologin1 = "SELECT id, ids, email, username, password, status, liga, team, regdate, last_login, readSticky, multiSperre, acceptedRules, hasLicense FROM ".$prefix."users WHERE (email = '".$loemail."' OR username = '".$loemail."')";
     }
     else {
-        $lologin1 = "SELECT id, ids, email, username, status, liga, team, regdate, last_login, readSticky, multiSperre, acceptedRules, hasLicense FROM ".$prefix."users WHERE ids = '".$valid_bigpoint_user."'";
+        $lologin1 = "SELECT id, ids, email, username, password, status, liga, team, regdate, last_login, readSticky, multiSperre, acceptedRules, hasLicense FROM ".$prefix."users WHERE ids = '".$valid_bigpoint_user."'";
     }
     $lologin2 = mysql_query($lologin1);
     $lologin3 = mysql_num_rows($lologin2);
     if ($lologin3 == 1) {
         $lologin4 = mysql_fetch_assoc($lologin2);
+        $password_ok = FALSE;
+        if ($valid_bigpoint_user != '') {
+            $password_ok = TRUE;
+        }
+        else {
+            if (password_verify($lopassword, $lologin4['password'])) {
+                $password_ok = TRUE;
+            }
+            else {
+                // Fallback for legacy salted MD5 hashes
+                $lopassword_salted = md5('1'.$lopassword.'29');
+                if ($lopassword_salted === $lologin4['password']) {
+                    $password_ok = TRUE;
+                    // Auto-upgrade password hash in database
+                    $new_hash = password_hash($lopassword, PASSWORD_DEFAULT);
+                    $upgrade_sql = "UPDATE ".$prefix."users SET password = '".$new_hash."' WHERE ids = '".$lologin4['ids']."'";
+                    mysql_query($upgrade_sql);
+                }
+            }
+        }
+        if ($password_ok) {
 		if (substr($lologin4['username'], 0, 9) == 'GELOESCHT') {
 			$_SESSION['loggedin'] = 0;
 			$hadresse = 'Location: /geloeschterAccount.php';
@@ -163,6 +183,7 @@ if ((isset($_POST['lusername']) && isset($_POST['lpassword'])) OR $valid_bigpoin
 				}
 			}
 		}
+        }
     }
 }
 header($hadresse);
